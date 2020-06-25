@@ -74,6 +74,7 @@ In GitHub, go to your repo and add a deploy key as follows:
 ** Key: <Paste your weave-flux-deploy-key.pub>
 ** Click the 'Allow Write Access' and click 'Add Key'
 
+Within 5 minutes this will deploy your base manifests.  
 
 
 
