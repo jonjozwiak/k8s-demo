@@ -1,0 +1,78 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks1
+  region: us-west-2
+  version: "1.16"
+
+vpc:
+  nat:
+    gateway: Single # Saving cost of demo
+    #gateway: HighlyAvailable # other options: Disable, Single (default)
+  # Custom CIDR
+  cidr: 10.10.0.0/16
+  autoAllocateIPv6: true
+
+nodeGroups:
+  - name: spotng
+    instanceType: mixed
+    #labels: { role: workers }
+    minSize: 2
+    desiredCapacity: 2
+    maxSize: 5
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/id_rsa.pub
+    # Spot-only Instances
+    instancesDistribution:
+      maxPrice: 0.04
+      instanceTypes: ["m5.large", "m5a.large", "m4.large", "t3.large", "t3a.large", "t2.large"] 
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 6
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        appMesh: true
+        ebs: true
+        fsx: true
+        efs: true
+        albIngress: true
+        xRay: true
+        cloudWatch: true
+  #- name: ng-2
+  #  instanceType: m5.xlarge
+  #  desiredCapacity: 2
+  #  ssh:
+  #    publicKeyPath: ~/.ssh/ec2_id_rsa.pub
+    kubeletExtraConfig:
+        kubeReserved:
+            cpu: "300m"
+            memory: "300Mi"
+            ephemeral-storage: "1Gi"
+        kubeReservedCgroup: "/kube-reserved"
+        systemReserved:
+            cpu: "300m"
+            memory: "300Mi"
+            ephemeral-storage: "1Gi"
+        evictionHard:
+            memory.available:  "200Mi"
+            nodefs.available: "10%"
+        featureGates:
+            DynamicKubeletConfig: true
+            RotateKubeletServerCertificate: true # has to be enabled
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]
+
+### IAM roles for service accounts documented here:
+### https://github.com/weaveworks/eksctl/blob/master/examples/13-iamserviceaccounts.yaml
+
+### KMS Secrets Encryption
+#secretsEncryption:
+#  # ARN of the KMS key
+#  keyARN: "arn:aws:kms:us-west-2:000000000000:key/00000000-0000-0000-0000-000000000000"
