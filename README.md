@@ -76,5 +76,12 @@ In GitHub, go to your repo and add a deploy key as follows:
 
 Within 5 minutes this will deploy your base manifests.  
 
+## Demo Steps for a simple Python Flask App 
+
+See the steps in my [hello-python repo](https://github.com/jonjozwiak/hello-python)
+
+
+## Cleanup 
+eksctl delete cluster -f cluster.yaml
 
 
