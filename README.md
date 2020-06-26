@@ -80,6 +80,41 @@ Within 5 minutes this will deploy your base manifests.
 
 See the steps in my [hello-python repo](https://github.com/jonjozwiak/hello-python)
 
+## Demo Steps for a simple nginx web server
+My web server is already deployed as it is defined in the manifests here.  Update the source code at [hello-nginx repo](https://github.com/jonjozwiak/hello-nginx) and you will see the new version deployed within 5 minutes.  
+
+Monitor by looking at the following:
+
+```
+kubectl get pods   # Look for new deployment time in seconds
+
+kubectl get pods -n flux 
+kubectl logs flux-######-##### -n flux
+ 1568  kubectl get pods 
+ 1569  git pull
+ 1570  git log --oneline 
+ 1571  git revert HEAD 
+ 1572  git log --oneline
+ 1573  git push 
+
+```
+
+Roll back to the previous version using Git in your hello-nginx repo
+```
+# In your hello-nginx directory
+kubectl get pods
+git pull
+git log --oneline
+git revert HEAD
+git log --oneline
+git push
+
+# Wait up to 5 minutes
+kubectl get pods 
+
+# Connect in https://nginx.redhatapps.com
+```
+
 
 ## Cleanup 
 eksctl delete cluster -f cluster.yaml
