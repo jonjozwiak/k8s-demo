@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: jonjozwiak/hello-nginx:sha-65754dc
+        image: jonjozwiak/hello-nginx:sha-03086ef
         imagePullPolicy: Always
         ports:
         - containerPort: 80
