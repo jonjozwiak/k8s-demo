@@ -10,7 +10,7 @@ This also assumes you have a public SSL certificate in ACM that covers your doma
 
 This is covered in AWS documentation [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html).
 
-* Install eksctl 
+### Install eksctl 
  * On Linux 
 ```
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -69,10 +69,10 @@ EKSCTL_EXPERIMENTAL=true \
 In GitHub, go to your repo and add a deploy key as follows:
 
 * In GitHub go to 'Settings' for the repo (NOT YOUR OVERALL PROFILE)
-** Click 'Deploy Keys' and 'Add deploy key'
-** Title: Weave Flux Deploy Key
-** Key: <Paste your weave-flux-deploy-key.pub>
-** Click the 'Allow Write Access' and click 'Add Key'
+ * Click 'Deploy Keys' and 'Add deploy key'
+ * Title: Weave Flux Deploy Key
+ * Key: <Paste your weave-flux-deploy-key.pub>
+ * Click the 'Allow Write Access' and click 'Add Key'
 
 Within 5 minutes this will deploy your base manifests.  
 
